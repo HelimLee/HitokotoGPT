@@ -18,5 +18,5 @@ for i in hitokotos:
     res_to_store = {}
     res_to_store["choices"][0]["message"]["content"] = i
     resJSON = json.dumps(res_to_store)
-    dbidle.log_request(workloads.encycle, resJSON)
+    dbidle.log_request(True, resJSON)
     print(i)
