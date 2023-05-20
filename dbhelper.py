@@ -17,14 +17,16 @@ class Database:
 
     def update_reqstat(self, systrack, usable):
         cursor = self.conn.cursor()
-        cursor.execute("UPDATE requests SET usable=?, reqres=? WHERE id=?", (usable, reqres, systrack))
+        cursor.execute("UPDATE requests SET usable=? WHERE id=?", (usable, systrack))
         self.conn.commit()
     
     def random_usable(self):
         cursor = self.conn.cursor()
         # 从 requests 表中随机抽取一行 usable 值为 true 的数据
-        cursor.execute("SELECT * FROM requests WHERE usable=1 ORDER BY RANDOM() LIMIT 1")
-        # 获取查询结果
+        cursor.execute("""(SELECT * FROM requests WHERE usable=true ORDER BY RANDOM() LIMIT 1)
+                      UNION ALL
+                      (SELECT * FROM requests ORDER BY RANDOM() LIMIT 1)
+                      LIMIT 1""")# 获取查询结果
         result = cursor.fetchone()
         if result:
             return {"err":False,"result":result}

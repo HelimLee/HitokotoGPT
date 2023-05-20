@@ -1,0 +1,8 @@
+{
+    "api_key" : "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",
+    "access_token" : "testkey",
+    "port" : 65530,
+    "database" : "testdebug",
+    "rate" : "1/min",
+    "rate_cached" : "3/min"
+}
